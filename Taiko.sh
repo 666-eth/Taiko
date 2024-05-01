@@ -101,7 +101,7 @@ list_recommended_ports
 # 将用户输入的值写入.env文件
 sed -i "s|L1_ENDPOINT_HTTP=.*|L1_ENDPOINT_HTTP=http://188.40.51.249:8545|" .env
 sed -i "s|L1_ENDPOINT_WS=.*|L1_ENDPOINT_WS=ws://188.40.51.249:8546|" .env
-sed -i "s|L1_BEACON_HTTP=.*|L1_BEACON_HTTP=https://ethereum-holesky-beacon-api.publicnode.com|" .env
+sed -i "s|L1_BEACON_HTTP=.*|L1_BEACON_HTTP=https://burned-twilight-log.ethereum-holesky.quiknode.pro|" .env
 sed -i "s|ENABLE_PROPOSER=.*|ENABLE_PROPOSER=true|" .env
 sed -i "s|L1_PROPOSER_PRIVATE_KEY=.*|L1_PROPOSER_PRIVATE_KEY=${l1_proposer_private_key}|" .env
 sed -i "s|L2_SUGGESTED_FEE_RECIPIENT=.*|L2_SUGGESTED_FEE_RECIPIENT=${l2_suggested_fee_recipient}|" .env
@@ -205,7 +205,7 @@ read -p "请输入EVM钱包地址: " l2_suggested_fee_recipient
 # 将用户输入的值写入.env文件
 sed -i "s|L1_ENDPOINT_HTTP=.*|L1_ENDPOINT_HTTP=http://188.40.51.249:8545|" .env
 sed -i "s|L1_ENDPOINT_WS=.*|L1_ENDPOINT_WS=ws://188.40.51.249:8546|" .env
-sed -i "s|L1_BEACON_HTTP=.*|L1_BEACON_HTTP=https://ethereum-holesky-beacon-api.publicnode.com|" .env
+sed -i "s|L1_BEACON_HTTP=.*|L1_BEACON_HTTP=https://burned-twilight-log.ethereum-holesky.quiknode.pro|" .env
 sed -i "s|ENABLE_PROPOSER=.*|ENABLE_PROPOSER=true|" .env
 sed -i "s|L1_PROPOSER_PRIVATE_KEY=.*|L1_PROPOSER_PRIVATE_KEY=${l1_proposer_private_key}|" .env
 sed -i "s|L2_SUGGESTED_FEE_RECIPIENT=.*|L2_SUGGESTED_FEE_RECIPIENT=${l2_suggested_fee_recipient}|" .env
