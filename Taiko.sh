@@ -99,14 +99,15 @@ list_recommended_ports
 
 
 # 将用户输入的值写入.env文件
+
 sed -i "s|L1_ENDPOINT_HTTP=.*|L1_ENDPOINT_HTTP=http://188.40.51.249:8545|" .env
 sed -i "s|L1_ENDPOINT_WS=.*|L1_ENDPOINT_WS=ws://188.40.51.249:8546|" .env
-sed -i "s|L1_BEACON_HTTP=.*|L1_BEACON_HTTP=http://195.201.170.121:5052|" .env
-sed -i "s|BOOT_NODES=.*|BOOT_NODES=enode://0b310c7dcfcf45ef32dde60fec274af88d52c7f0fb6a7e038b14f5f7bb7d72f3ab96a59328270532a871db988a0bcf57aa9258fa8a80e8e553a7bb5abd77c40d@167.235.249.45:30303,enode://500a10f3a8cfe00689eb9d41331605bf5e746625ac356c24235ff66145c2de454d869563a71efb3d2fb4bc1c1053b84d0ab6deb0a4155e7227188e1a8457b152@85.10.202.253:30303,enode://0b310c7dcfcf45ef32dde60fec274af88d52c7f0fb6a7e038b14f5f7bb7d72f3ab96a59328270532a871db988a0bcf57aa9258fa8a80e8e553a7bb5abd77c40d@167.235.249.45:30303,enode://500a10f3a8cfe00689eb9d41331605bf5e746625ac356c24235ff66145c2de454d869563a71efb3d2fb4bc1c1053b84d0ab6deb0a4155e7227188e1a8457b152@85.10.202.253:30303|" .env
+sed -i "s|L1_BEACON_HTTP=.*|L1_BEACON_HTTP=http://188.40.51.249:5052|" .env
 sed -i "s|ENABLE_PROPOSER=.*|ENABLE_PROPOSER=true|" .env
 sed -i "s|L1_PROPOSER_PRIVATE_KEY=.*|L1_PROPOSER_PRIVATE_KEY=${l1_proposer_private_key}|" .env
 sed -i "s|L2_SUGGESTED_FEE_RECIPIENT=.*|L2_SUGGESTED_FEE_RECIPIENT=${l2_suggested_fee_recipient}|" .env
-sed -i "s|PROVER_ENDPOINTS=.*|PROVER_ENDPOINTS=http://kenz-prover.hekla.kzvn.xyz:9876|" .env
+sed -i "s|PROVER_ENDPOINTS=.*|PROVER_ENDPOINTS=http://taiko-a7-prover.zkpool.io|" .env
+sed -i "s|BOOT_NODES=.*|BOOT_NODES=enode://0b310c7dcfcf45ef32dde60fec274af88d52c7f0fb6a7e038b14f5f7bb7d72f3ab96a59328270532a871db988a0bcf57aa9258fa8a80e8e553a7bb5abd77c40d@167.235.249.45:30303,enode://500a10f3a8cfe00689eb9d41331605bf5e746625ac356c24235ff66145c2de454d869563a71efb3d2fb4bc1c1053b84d0ab6deb0a4155e7227188e1a8457b152@85.10.202.253:30303,enode://0b310c7dcfcf45ef32dde60fec274af88d52c7f0fb6a7e038b14f5f7bb7d72f3ab96a59328270532a871db988a0bcf57aa9258fa8a80e8e553a7bb5abd77c40d@167.235.249.45:30303,enode://500a10f3a8cfe00689eb9d41331605bf5e746625ac356c24235ff66145c2de454d869563a71efb3d2fb4bc1c1053b84d0ab6deb0a4155e7227188e1a8457b152@85.10.202.253:30303|" .env
 
 
 # 更新.env文件中的端口配置
@@ -118,6 +119,7 @@ sed -i "s|PORT_PROVER_SERVER=.*|PORT_PROVER_SERVER=8004|" .env
 sed -i "s|PORT_PROMETHEUS=.*|PORT_PROMETHEUS=8005|" .env
 sed -i "s|PORT_GRAFANA=.*|PORT_GRAFANA=8006|" .env
 sed -i "s|BLOCK_PROPOSAL_FEE=.*|BLOCK_PROPOSAL_FEE=30|" .env
+
 
 # 用户信息已配置完毕
 echo "用户信息已配置完毕。"
@@ -175,7 +177,7 @@ docker compose --profile proposer up -d
 public_ip=$(curl -s ifconfig.me)
 
 # 准备原始链接
-original_url="LocalHost:8006/d/L2ExecutionEngine/l2-execution-engine-overview?orgId=1&refresh=10s"
+original_url="LocalHost:${port_grafana}/d/L2ExecutionEngine/l2-execution-engine-overview?orgId=1&refresh=10s"
 
 # 替换 LocalHost 为公网 IP 地址
 updated_url=$(echo $original_url | sed "s/LocalHost/$public_ip/")
@@ -198,21 +200,16 @@ cd #HOME
 cd simple-taiko-node
 
 
-
-read -p "请输入EVM钱包私钥: " l1_proposer_private_key
-
-read -p "请输入EVM钱包地址: " l2_suggested_fee_recipient
-
 # 将用户输入的值写入.env文件
 sed -i "s|L1_ENDPOINT_HTTP=.*|L1_ENDPOINT_HTTP=http://188.40.51.249:8545|" .env
 sed -i "s|L1_ENDPOINT_WS=.*|L1_ENDPOINT_WS=ws://188.40.51.249:8546|" .env
-sed -i "s|L1_BEACON_HTTP=.*|L1_BEACON_HTTP=http://195.201.170.121:5052|" .env
-sed -i "s|BOOT_NODES=.*|BOOT_NODES=enode://0b310c7dcfcf45ef32dde60fec274af88d52c7f0fb6a7e038b14f5f7bb7d72f3ab96a59328270532a871db988a0bcf57aa9258fa8a80e8e553a7bb5abd77c40d@167.235.249.45:30303,enode://500a10f3a8cfe00689eb9d41331605bf5e746625ac356c24235ff66145c2de454d869563a71efb3d2fb4bc1c1053b84d0ab6deb0a4155e7227188e1a8457b152@85.10.202.253:30303,enode://0b310c7dcfcf45ef32dde60fec274af88d52c7f0fb6a7e038b14f5f7bb7d72f3ab96a59328270532a871db988a0bcf57aa9258fa8a80e8e553a7bb5abd77c40d@167.235.249.45:30303,enode://500a10f3a8cfe00689eb9d41331605bf5e746625ac356c24235ff66145c2de454d869563a71efb3d2fb4bc1c1053b84d0ab6deb0a4155e7227188e1a8457b152@85.10.202.253:30303|" .env
+sed -i "s|L1_BEACON_HTTP=.*|L1_BEACON_HTTP=http://188.40.51.249:5052|" .env
 sed -i "s|ENABLE_PROPOSER=.*|ENABLE_PROPOSER=true|" .env
 sed -i "s|L1_PROPOSER_PRIVATE_KEY=.*|L1_PROPOSER_PRIVATE_KEY=${l1_proposer_private_key}|" .env
 sed -i "s|L2_SUGGESTED_FEE_RECIPIENT=.*|L2_SUGGESTED_FEE_RECIPIENT=${l2_suggested_fee_recipient}|" .env
-sed -i "s|DISABLE_P2P_SYNC=.*|DISABLE_P2P_SYNC=false|" .env
-sed -i "s|PROVER_ENDPOINTS=.*|PROVER_ENDPOINTS=http://kenz-prover.hekla.kzvn.xyz:9876|" .env
+sed -i "s|DISABLE_P2P_SYNC=.*|DISABLE_P2P_SYNC=${disable_p2p_sync}|" .env
+sed -i "s|PROVER_ENDPOINTS=.*|PROVER_ENDPOINTS=http://taiko-a7-prover.zkpool.io|" .env
+sed -i "s|BOOT_NODES=.*|BOOT_NODES=enode://0b310c7dcfcf45ef32dde60fec274af88d52c7f0fb6a7e038b14f5f7bb7d72f3ab96a59328270532a871db988a0bcf57aa9258fa8a80e8e553a7bb5abd77c40d@167.235.249.45:30303,enode://500a10f3a8cfe00689eb9d41331605bf5e746625ac356c24235ff66145c2de454d869563a71efb3d2fb4bc1c1053b84d0ab6deb0a4155e7227188e1a8457b152@85.10.202.253:30303,enode://0b310c7dcfcf45ef32dde60fec274af88d52c7f0fb6a7e038b14f5f7bb7d72f3ab96a59328270532a871db988a0bcf57aa9258fa8a80e8e553a7bb5abd77c40d@167.235.249.45:30303,enode://500a10f3a8cfe00689eb9d41331605bf5e746625ac356c24235ff66145c2de454d869563a71efb3d2fb4bc1c1053b84d0ab6deb0a4155e7227188e1a8457b152@85.10.202.253:30303|" .env
 
 
 docker compose --profile l2_execution_engine down
@@ -227,7 +224,8 @@ cd #HOME
 cd simple-taiko-node
 
 
-sed -i "s|PROVER_ENDPOINTS=.*|PROVER_ENDPOINTS=http://kenz-prover.hekla.kzvn.xyz:9876|" .env
+
+sed -i "s|PROVER_ENDPOINTS=.*|PROVER_ENDPOINTS=http://taiko-a7-prover.zkpool.io|" .env
 
 docker compose --profile l2_execution_engine down
 docker stop simple-taiko-node-taiko_client_proposer-1 && docker rm simple-taiko-node-taiko_client_proposer-1
@@ -236,16 +234,51 @@ docker compose --profile proposer up -d
 
 }
 
+# 查看节点日志
+function delete_new() {
+    cd #HOME
+    cd simple-taiko-node
+    docker compose --profile l2_execution_engine down -v
+    docker stop simple-taiko-node-taiko_client_proposer-1 && docker rm simple-taiko-node-taiko_client_proposer-1
+    cd #HOME
+    rm -rf simple-taiko-node
+}
+
+function delete_old() {
+    cd #HOME
+    cd simple-taiko-node
+    docker compose down -v
+    cd #HOME
+    rm -rf simple-taiko-node
+}
+
+function update_beacon_bootnode() {
+    cd #HOME
+    cd simple-taiko-node
+    read -p "请输入Beacon Holskey RPC（如果你没有搭建的话，请输入:http://195.201.170.121:5052或者http://188.40.51.249:5052即可）链接: " l1_beacon_http
+    sed -i "s|BOOT_NODES=.*|BOOT_NODES=enode://0b310c7dcfcf45ef32dde60fec274af88d52c7f0fb6a7e038b14f5f7bb7d72f3ab96a59328270532a871db988a0bcf57aa9258fa8a80e8e553a7bb5abd77c40d@167.235.249.45:30303,enode://500a10f3a8cfe00689eb9d41331605bf5e746625ac356c24235ff66145c2de454d869563a71efb3d2fb4bc1c1053b84d0ab6deb0a4155e7227188e1a8457b152@85.10.202.253:30303,enode://0b310c7dcfcf45ef32dde60fec274af88d52c7f0fb6a7e038b14f5f7bb7d72f3ab96a59328270532a871db988a0bcf57aa9258fa8a80e8e553a7bb5abd77c40d@167.235.249.45:30303,enode://500a10f3a8cfe00689eb9d41331605bf5e746625ac356c24235ff66145c2de454d869563a71efb3d2fb4bc1c1053b84d0ab6deb0a4155e7227188e1a8457b152@85.10.202.253:30303|" .env
+    sed -i "s|L1_BEACON_HTTP=.*|L1_BEACON_HTTP=${l1_beacon_http}|" .env
+    docker compose --profile l2_execution_engine down -v
+    docker stop simple-taiko-node-taiko_client_proposer-1 && docker rm simple-taiko-node-taiko_client_proposer-1
+    docker compose --profile l2_execution_engine up -d
+    docker compose --profile proposer up -d
+}
 # 主菜单
 function main_menu() {
     clear
-    echo "Taiko节点"
+    echo "taiko节点脚本"
+    echo "=====================安装及常规修改功能========================="
     echo "请选择要执行的操作:"
     echo "1. 安装节点"
     echo "2. 查看节点日志"
     echo "3. 设置快捷键的功能"
     echo "4. 更改常规配置"
     echo "5. 更换rpc"
+    echo "=======================卸载节点功能============================="
+    echo "6. 卸载新测试网节点（所有数据清除）"
+    echo "7. 卸载旧测试网节点（所有数据清除）"
+    echo "=======================常规更新功能============================="
+    echo "8. 更新Beacon rpc和加速节点"
     read -p "请输入选项（1-3）: " OPTION
 
     case $OPTION in
@@ -254,6 +287,9 @@ function main_menu() {
     3) check_and_set_alias ;; 
     4) change_option ;; 
     5) change_prover ;; 
+    6) delete_new ;; 
+    7) delete_old ;; 
+    8) update_beacon_bootnode ;; 
     *) echo "无效选项。" ;;
     esac
 }
