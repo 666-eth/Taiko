@@ -101,7 +101,8 @@ list_recommended_ports
 # 将用户输入的值写入.env文件
 sed -i "s|L1_ENDPOINT_HTTP=.*|L1_ENDPOINT_HTTP=http://188.40.51.249:8545|" .env
 sed -i "s|L1_ENDPOINT_WS=.*|L1_ENDPOINT_WS=ws://188.40.51.249:8546|" .env
-sed -i "s|L1_BEACON_HTTP=.*|L1_BEACON_HTTP=https://burned-twilight-log.ethereum-holesky.quiknode.pro|" .env
+sed -i "s|L1_BEACON_HTTP=.*|L1_BEACON_HTTP=http://195.201.170.121:5052|" .env
+sed -i "s|BOOT_NODES=.*|BOOT_NODES=enode://0b310c7dcfcf45ef32dde60fec274af88d52c7f0fb6a7e038b14f5f7bb7d72f3ab96a59328270532a871db988a0bcf57aa9258fa8a80e8e553a7bb5abd77c40d@167.235.249.45:30303,enode://500a10f3a8cfe00689eb9d41331605bf5e746625ac356c24235ff66145c2de454d869563a71efb3d2fb4bc1c1053b84d0ab6deb0a4155e7227188e1a8457b152@85.10.202.253:30303,enode://0b310c7dcfcf45ef32dde60fec274af88d52c7f0fb6a7e038b14f5f7bb7d72f3ab96a59328270532a871db988a0bcf57aa9258fa8a80e8e553a7bb5abd77c40d@167.235.249.45:30303,enode://500a10f3a8cfe00689eb9d41331605bf5e746625ac356c24235ff66145c2de454d869563a71efb3d2fb4bc1c1053b84d0ab6deb0a4155e7227188e1a8457b152@85.10.202.253:30303|" .env
 sed -i "s|ENABLE_PROPOSER=.*|ENABLE_PROPOSER=true|" .env
 sed -i "s|L1_PROPOSER_PRIVATE_KEY=.*|L1_PROPOSER_PRIVATE_KEY=${l1_proposer_private_key}|" .env
 sed -i "s|L2_SUGGESTED_FEE_RECIPIENT=.*|L2_SUGGESTED_FEE_RECIPIENT=${l2_suggested_fee_recipient}|" .env
